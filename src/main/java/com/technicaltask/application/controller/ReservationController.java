@@ -24,6 +24,18 @@ public class ReservationController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ReservationDTO> editReservation(@PathVariable("id") int id, @RequestBody ReservationDTO reservation) {
+        try {
+            ReservationDTO newReservation = this.reservationService.edit(id, reservation);
+            return new ResponseEntity<>(newReservation, HttpStatus.CREATED);
+        } catch (ReservationNotFoundException exception) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }  catch (Exception exception) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable("id") int id) {
         try {

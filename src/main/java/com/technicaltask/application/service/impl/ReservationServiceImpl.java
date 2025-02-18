@@ -22,6 +22,18 @@ public class ReservationServiceImpl implements ReservationService {
         return ReservationMapper.mapToDTO(newReservation);
     }
 
+    public ReservationDTO edit(int id, ReservationDTO reservationDTO) {
+        Reservation reservation = this.reservationRepository.findById(id)
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found"));
+
+        reservation.setGuestName(reservationDTO.getGuestName());
+        reservation.setDateFrom(reservationDTO.getDateFrom());
+        reservation.setDateTo(reservationDTO.getDateTo());
+
+        this.reservationRepository.save(reservation);
+        return ReservationMapper.mapToDTO(reservation);
+    }
+
     public List<ReservationDTO> findAll() {
         List<Reservation> reservations = this.reservationRepository.findAll();
 
