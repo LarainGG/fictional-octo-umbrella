@@ -49,6 +49,8 @@ public class ReservationControllerIntegrationTest {
 
         this.mockMvc.perform(delete("/api/reservation/1"))
                 .andExpect(status().isOk());
+
+        this.reservationRepository.delete(reservation);
     }
 
     @Test

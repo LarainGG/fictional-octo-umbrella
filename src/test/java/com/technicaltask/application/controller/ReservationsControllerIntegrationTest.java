@@ -47,5 +47,6 @@ public class ReservationsControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].id")
                     .isNotEmpty());
+        this.reservationRepository.delete(reservation);
     }
 }
